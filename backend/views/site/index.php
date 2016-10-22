@@ -52,7 +52,7 @@ use yii\helpers\Url;
         <li>
             <a href="#"><span class="icon icon-setting"></span>系统设置</a>
             <ul>
-                <li><a href="#">文章设置</a></li>
+                <li><a href="<?=Url::to(['user/index'])?>" target="main">用户管理</a></li>
                 <li><a href="#">文章设置</a></li>
                 <li><a href="#">文章设置</a></li>
             </ul>

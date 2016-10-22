@@ -1,6 +1,14 @@
-<ul class="breadcrumb"><li>首页</li>
-	<li><a href="@">配置网站</a></li>
-</ul>
+<?php
+use yii\widgets\Breadcrumbs;
+use yii\helpers\Url;
+use yii\widgets\LinkPager;
+?>
+<?=Breadcrumbs::widget([
+    'homeLink' => ['label' => '首页'],
+    'links' => [
+        '用户列表',
+    ]
+])?>
 <div class="inner-container">
 	<p class="text-right">
 		<a class="btn btn-primary btn-middle" href="#">添加</a>
