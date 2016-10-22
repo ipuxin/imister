@@ -18,8 +18,9 @@ use yii\widgets\LinkPager;
         <table class="table table-hover">
             <thead>
             <tr>
-                <th class="text-center"><input type="checkbox"
-                                               onclick="$('input[name*=\'selected\']').prop('checked',this.checked);">
+                <th class="text-center">
+                    <input type="checkbox"
+                           onclick="$('input[name*=\'selected\']').prop('checked',this.checked);">
                 </th>
                 <th>用户名</th>
                 <th>登录ip</th>

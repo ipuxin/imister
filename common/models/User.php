@@ -19,6 +19,11 @@ class User extends ActiveRecord
         ];
     }
 
+    /**
+     * @param $attribute
+     * @param $params
+     * 自定义验证规则
+     */
     public function checkName($attribute, $params)
     {
         //字母，数字 2~30
@@ -29,13 +34,19 @@ class User extends ActiveRecord
         }
     }
 
+    /**
+     * @param bool $insert
+     * @return bool
+     * 插入前的验证,
+     * 必须在父类验证成功后,才能进行下一步验证
+     */
     public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
                 $this->date = $this->login_date = time();
             }
-            $this->password = md5($this->password);
+            $this->password = md5(md5(md5($this->password), true) . 'ipuxin521');
             return true;
         }
         return false;
