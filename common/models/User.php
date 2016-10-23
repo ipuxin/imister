@@ -88,8 +88,11 @@ class User extends ActiveRecord
              */
             if ($this->isNewRecord) {
                 $this->date = $this->login_date = time();
+            }else{
+                $this->login_date = time();
             }
 
+//            \common\helps\Tools::debug($this->login_date,'$this->login_date',true);
             /**
              * 当修改时,不填密码表示不修改
              * 如果为空,就清空,

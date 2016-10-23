@@ -2,7 +2,6 @@
 use backend\assets\LoginAsset;
 use yii\helpers\Html;
 use yii\captcha\Captcha;
-
 /**
  * 自定义注册css
  */

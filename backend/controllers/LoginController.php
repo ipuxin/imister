@@ -3,10 +3,23 @@ namespace backend\controllers;
 
 use yii\web\Controller;
 use backend\models\LoginForm;
-use yii;
+use Yii;
 
-class LoginController extends Controller
+class LoginController extends CommonController
 {
+    /**
+     * @return $this
+     * 判断,没有登录就跳转到首页
+     */
+    public function init()
+    {
+        parent::init();
+        //判断用户是否登录
+        if($this->userId){
+            return Yii::$app->response->redirect(['site/index']);
+        }
+    }
+
     /**
      * @return array
      * 验证码
@@ -16,8 +29,8 @@ class LoginController extends Controller
        return [
             'captcha' => [
                 'class' => 'yii\captcha\captchaAction',
-                'maxLength' => 4,
-                'minLength' => 4,
+                'maxLength' => 3,
+                'minLength' => 3,
                 'width' => 80,
                 'height' => 40
             ]

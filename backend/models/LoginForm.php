@@ -5,6 +5,7 @@ use yii\base\Model;
 use common\models\User;
 use Yii;
 use yii\web\Cookie;
+use common\helps\Tools;
 
 class LoginForm extends Model
 {
@@ -73,14 +74,17 @@ class LoginForm extends Model
     {
         /**
          * 存储的用户信息为假,
-         * 更新用户登录后的信息为假,
-         * 以上两种情况,又一个成立,就返回false,登录失败.
+         * 登录失败.
          */
-        if (!$this->user){
+        if (!$this->user) {
             return false;
         }
 
-        if($this->updateUserStatus()){
+        /**
+         * 用户登录后的更新信息为假,
+         * 登录失败.
+         */
+        if (!$this->updateUserStatus()) {
             return false;
         }
 
@@ -134,10 +138,12 @@ class LoginForm extends Model
     private function updateUserStatus()
     {
         $user = User::findOne($this->user['id']);
-        $user->login_ip = 111;
-        $user->login_date = 111;
+        $user->login_ip = Yii::$app->request->userIP;
 
-        return $user->save();
+        if ($user->save()) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -149,7 +155,9 @@ class LoginForm extends Model
         if ($cookies->has(self::BACKEND_COOKIE)) {
             $userData = $cookies->getValue(self::BACKEND_COOKIE);
             if (isset($userData['id']) && isset($userData['username'])) {
-                $this->user = User::find()->where(['username' => $userData['username'], 'id' => $userData['id'], 'status' => 1])->asArray()->one();
+                $this->user = User::find()
+                    ->where(['username' => $userData['username'], 'id' => $userData['id'], 'status' => 1])
+                    ->asArray()->one();
                 if ($this->user) {
                     $this->createSession();
                     return true;

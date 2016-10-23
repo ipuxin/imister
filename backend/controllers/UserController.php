@@ -1,19 +1,11 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2016/3/28
- * Time: 23:13
- */
 namespace backend\controllers;
 
-use yii\web\Controller;
 use Yii;
 use common\models\User;
 use yii\data\Pagination;
-use common\helps\Tools;
 
-class UserController extends Controller
+class UserController extends AdminController
 {
     public $layout = 'empty';
 
