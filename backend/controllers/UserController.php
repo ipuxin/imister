@@ -7,8 +7,6 @@ use yii\data\Pagination;
 
 class UserController extends AdminController
 {
-    public $layout = 'empty';
-
     /**
      * @return string
      * 显示

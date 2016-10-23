@@ -83,12 +83,11 @@ class User extends ActiveRecord
         if (parent::beforeSave($insert)) {
 
             /**
+             * 如果是新增,
              * 插入创建时间和登录时间
              */
             if ($this->isNewRecord) {
                 $this->date = $this->login_date = time();
-            }else{
-                $this->login_date = time();
             }
 
 //            \common\helps\Tools::debug($this->login_date,'$this->login_date',true);

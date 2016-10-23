@@ -10,6 +10,7 @@ use Yii;
 
 class AdminController extends CommonController
 {
+    public $layout = 'empty';
     public function init()
     {
         parent::init();
