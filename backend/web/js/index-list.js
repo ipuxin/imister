@@ -19,8 +19,9 @@ $(function () {
      * prop:获取匹配的元素集中第一个元素的属性（property）值或设置每一个匹配元素的一个或多个属性。
      */
     $(".data_delete").click(function () {
+        alert('ok');
         $("#dltForm").find('input[type=checkbox]').prop('checked', false);
-//            $(this).parent().parent().find('input[type=checkbox]').prop('checked', true);
+        $(this).parent().parent().find('input[type=checkbox]').prop('checked', true);
         $("#delete-btn").click();
     });
 });

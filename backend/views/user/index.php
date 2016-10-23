@@ -2,7 +2,7 @@
 use yii\widgets\Breadcrumbs;
 use yii\helpers\Url;
 use yii\widgets\LinkPager;
-use \Yii;
+use \yii;
 use yii\helpers\Html;
 
 /**
@@ -60,7 +60,7 @@ $this->registerJsFile('@web/js/index-list.js', ['depends' => 'yii\web\JqueryAsse
             <tr>
                 <td class="text-center">
                     <!--比较好的Yii2表单处理之checkbox处理-->
-                    <input type="checkbox" name="selected[]" value="<?=$value['id']?>">
+                    <input type="checkbox" name="selected[]" value="<?= $value['id'] ?>">
                 </td>
                 <td><?= $value['username'] ?></td>
                 <td><?= $value['login_ip'] ?></td>

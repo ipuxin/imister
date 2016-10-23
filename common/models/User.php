@@ -9,7 +9,7 @@ class User extends ActiveRecord
      * 设置超级管理员id默认为2
      * 防止都删除,进不来
      */
-    const SUPER_ID = 2;
+    const SUPER_ID = 4;
 
     public static function tableName()
     {
@@ -45,17 +45,32 @@ class User extends ActiveRecord
      */
     public function checkName($attribute, $params)
     {
-        //字母，数字 2~30
+        /**
+         * 字母，数字 2~30
+         */
         if (!preg_match("/^[\w]{2,30}$/", $this->$attribute)) {
             $this->addError($attribute, '用户名必须为2~30的数字或字母');
-        } else if (self::find()->where(['username' => $this->$attribute])
-                /**
-                 * 如果是修改,昵称可以和之前自己的昵称相同,
-                 * 所以,只判断,当前昵称,不与除自己之外的用户相同就行
-                 */
-                ->andWhere(['!=', 'id', $this->id])->count() > 0
-        ) {
+        }
+        /**
+         * 新增,名称不能和已有的相同
+         */
+        if (self::find()
+                ->where(['username' => $this->$attribute])
+                ->count() > 0) {
             $this->addError($attribute, '用户名已经被占用');
+        }
+
+        /**
+         * 如果是修改,昵称可以和之前自己的昵称相同,
+         * 所以,只查询其他用户的用户名就行
+         */
+        if (!empty($this->id)) {
+            if(self::find()
+                    ->where(['username' => $this->$attribute])
+                    ->andWhere(['!=', 'id', $this->id])
+                    ->count() > 0){
+                $this->addError($attribute, '用户名已经被占用');
+            }
         }
     }
 

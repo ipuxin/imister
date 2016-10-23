@@ -48,7 +48,7 @@ class LoginForm extends Model
              */
             $password = md5(md5(md5($this->password), true) . 'ipuxin521');
             $user = User::find()
-                ->where(['username' => $this->$attribute, 'status' => 1,'password'=>$password])
+                ->where(['username' => $this->$attribute, 'status' => 1, 'password' => $password])
                 ->asArray()
                 ->one();
             if (!$user) {
@@ -72,10 +72,17 @@ class LoginForm extends Model
     public function login()
     {
         /**
-         * 如果存储的用户信息为空
-         * 就返回false,登录失败
+         * 存储的用户信息为假,
+         * 更新用户登录后的信息为假,
+         * 以上两种情况,又一个成立,就返回false,登录失败.
          */
-        if (!$this->user && $this->updateUserStatus()) return false;
+        if (!$this->user){
+            return false;
+        }
+
+        if($this->updateUserStatus()){
+            return false;
+        }
 
         /**
          * session保存用户信息
@@ -119,11 +126,17 @@ class LoginForm extends Model
         Yii::$app->response->cookies->add($cookie);
     }
 
+    /**
+     * @return bool
+     * 更新用户登录后的信息:
+     * 存储ip,更新登录时间
+     */
     private function updateUserStatus()
     {
         $user = User::findOne($this->user['id']);
-        $user->login_update = Yii::$app->request->getUserIP();
-        $user->login_date = time();
+        $user->login_ip = 111;
+        $user->login_date = 111;
+
         return $user->save();
     }
 
@@ -145,7 +158,6 @@ class LoginForm extends Model
         }
         return false;
     }
-
 
     /**
      * 退出登录
