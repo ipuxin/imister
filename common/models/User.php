@@ -35,6 +35,7 @@ class User extends ActiveRecord
                     return ($model->isNewRecord || $model->password != '');
                 }],
             ['status', 'in', 'range' => [0, 1], 'message' => '非法操作'],
+            [['login_date','date','login_ip'],'safe']
         ];
     }
 
@@ -51,24 +52,21 @@ class User extends ActiveRecord
         if (!preg_match("/^[\w]{2,30}$/", $this->$attribute)) {
             $this->addError($attribute, '用户名必须为2~30的数字或字母');
         }
-        /**
-         * 新增,名称不能和已有的相同
-         */
-        if (self::find()
-                ->where(['username' => $this->$attribute])
-                ->count() > 0) {
-            $this->addError($attribute, '用户名已经被占用');
-        }
 
         /**
          * 如果是修改,昵称可以和之前自己的昵称相同,
          * 所以,只查询其他用户的用户名就行
          */
         if (!empty($this->id)) {
-            if(self::find()
-                    ->where(['username' => $this->$attribute])
-                    ->andWhere(['!=', 'id', $this->id])
-                    ->count() > 0){
+            if(self::find()->where(['username' => $this->$attribute])->andWhere(['!=', 'id', $this->id]) ->count() > 0){
+                $this->addError($attribute, '用户名已经被占用');
+            }
+        }else{
+            /**
+             * 新增,名称不能和已有的相同
+             */
+            if (self::find()->where(['username' => $this->$attribute])->count() > 0) {
+
                 $this->addError($attribute, '用户名已经被占用');
             }
         }
@@ -83,6 +81,7 @@ class User extends ActiveRecord
     public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {
+
             /**
              * 插入创建时间和登录时间
              */

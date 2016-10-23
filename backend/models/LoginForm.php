@@ -84,9 +84,8 @@ class LoginForm extends Model
          * 用户登录后的更新信息为假,
          * 登录失败.
          */
-        if (!$this->updateUserStatus()) {
-            return false;
-        }
+        $this->updateUserStatus();
+
 
         /**
          * session保存用户信息
@@ -138,12 +137,9 @@ class LoginForm extends Model
     private function updateUserStatus()
     {
         $user = User::findOne($this->user['id']);
-        $user->login_ip = Yii::$app->request->userIP;
-
-        if ($user->save()) {
-            return true;
-        }
-        return false;
+        $user->login_ip = Yii::$app->request->getUserIP();
+        $user->login_date = time();
+        return $user->save(false);
     }
 
     /**
