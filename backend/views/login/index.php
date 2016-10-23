@@ -53,7 +53,7 @@ LoginAsset::register($this);
             </li>
             <li class="tip">&nbsp;<?= Html::error($model, 'verifyCode', ['class' => 'error']) ?></li>
             <li class="tip remember">
-                <input type="checkbox" id="remember" name="LoginForm[remmber]" value="1">
+                <input type="checkbox" id="remember" name="LoginForm[remember]" value="1">
                 <label for="remember">&nbsp;保持登录状态</label>
             </li>
         </ul>

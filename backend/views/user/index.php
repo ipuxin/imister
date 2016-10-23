@@ -9,6 +9,7 @@ use yii\helpers\Html;
  * 注册自定义js,依赖jQuery
  */
 $this->registerJsFile('@web/js/index-list.js', ['depends' => 'yii\web\JqueryAsset']);
+
 ?>
 <?= Breadcrumbs::widget([
     'homeLink' => ['label' => '首页'],

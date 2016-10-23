@@ -35,6 +35,7 @@ use yii\helpers\Url;
     </div>
 </header>
 <div id="content">
+
     <ul id="menu">
         <li><a href="#"><span class="icon icon-home"></span>首页</a></li>
         <li><a href="#"><span class="icon icon-person"></span>个人中心</a></li>
