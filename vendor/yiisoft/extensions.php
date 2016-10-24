@@ -57,4 +57,13 @@ return array (
       '@yii/swiftmailer' => $vendorDir . '/yiisoft/yii2-swiftmailer',
     ),
   ),
+  'yiisoft/yii2-imagine' => 
+  array (
+    'name' => 'yiisoft/yii2-imagine',
+    'version' => '2.0.4.0',
+    'alias' => 
+    array (
+      '@yii/imagine' => $vendorDir . '/yiisoft/yii2-imagine',
+    ),
+  ),
 );
