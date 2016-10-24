@@ -3,6 +3,7 @@
 //Remove Events Auto Convert
 use yii\web\JsExpression;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use xj\uploadify\Uploadify;
 
 echo '<br/><br/><br/>';
@@ -42,3 +43,15 @@ EOF
 
 ?>
 <div id="aa"></div>
+<?= \cliff363825\kindeditor\KindEditorWidget::widget([
+    'name' => 'content',
+    'options' => [], // html attributes
+    'clientOptions' => [
+        'width' => '680px',
+        'height' => '350px',
+        'themeType' => 'default', // optional: default, simple, qq
+        'langType' => \cliff363825\kindeditor\KindEditorWidget::LANG_TYPE_ZH_CN, // optional: ar, en, ko, ru, zh-CN, zh-TW
+        //这里是配置上传链接
+        'uploadJson' => Url::to(['test/upload']),
+    ],
+]); ?>

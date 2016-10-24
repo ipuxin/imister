@@ -11,10 +11,13 @@ use yii\web\Controller;
 use Yii;
 use yii\helpers\ArrayHelper;
 use xj\uploadify\UploadAction;
-
+use yii\imagine\Image;
 
 class TestController extends Controller
 {
+
+    //关闭 csrf 跨站检测攻击
+    public $enableCsrfValidation = false;
 
     public function actions()
     {
@@ -53,16 +56,26 @@ class TestController extends Controller
                 'beforeValidate' => function (UploadAction $action) {
                     //throw new Exception('test error');
                 },
-                'afterValidate' => function (UploadAction $action) {},
-                'beforeSave' => function (UploadAction $action) {},
+                'afterValidate' => function (UploadAction $action) {
+                },
+                'beforeSave' => function (UploadAction $action) {
+                },
                 'afterSave' => function (UploadAction $action) {
                     //$action->output
                     $action->output['fileUrl'] = $action->getWebUrl();
                     $action->output['fileName'] = $action->getFilename(); // "image/yyyymmddtimerand.jpg"
                     //www.smister.com/upload/images/aa.jpg
-                   // $action->getWebUrl(); //  "baseUrl + filename, /upload/image/yyyymmddtimerand.jpg"
+                    // $action->getWebUrl(); //  "baseUrl + filename, /upload/image/yyyymmddtimerand.jpg"
                     $action->output['filePath'] = $action->getSavePath(); // "/var/www/htdocs/upload/image/yyyymmddtimerand.jpg"
                 },
+            ],
+
+            /**
+             * KindEditor
+             */
+            'upload' => [
+                'class' => '\cliff363825\kindeditor\KindEditorUploadAction',
+                'maxSize' => 2097152,
             ],
         ];
     }
