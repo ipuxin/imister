@@ -39,9 +39,9 @@ class LoginForm extends Model
     public function validateAccount($attribute, $params)
     {
         if (!preg_match('/^\w{2,30}$/', $this->$attribute)) {
-            $this->addError($attribute, '账号或密码错误');
+            $this->addError($attribute, '账号必须是2-30位字母或数字');
         } else if (strlen($this->password) < 6) {
-            $this->addError($attribute, '账号或密码错误');
+            $this->addError($attribute, '密码小于六位');
         } else {
             /**
              * 判断用户名和密码,同时验证状态是可用的.
@@ -52,6 +52,10 @@ class LoginForm extends Model
                 ->where(['username' => $this->$attribute, 'status' => 1, 'password' => $password])
                 ->asArray()
                 ->one();
+//            Yii::$app->tools->debug($this->$attribute,'$this->$attribute',false);
+//            Yii::$app->tools->debug($this->password,'$this->password',false);
+//            Yii::$app->tools->debug($password,'$password',false);
+//            Yii::$app->tools->debug($user,'$user',true);
             if (!$user) {
                 $this->addError($attribute, '账号或密码错误');
             } else {
@@ -59,6 +63,7 @@ class LoginForm extends Model
                  * 存储用户信息
                  */
                 $this->user = $user;
+                return true;
             }
         }
     }
@@ -138,6 +143,8 @@ class LoginForm extends Model
         $user = User::findOne($this->user['id']);
         $user->login_date = time();
         $user->login_ip = Yii::$app->request->getUserIP();
+        $user->password = $this->password;
+//        Yii::$app->tools->debug($user->password,'$user->password',true);
         return $user->save(false);
     }
 

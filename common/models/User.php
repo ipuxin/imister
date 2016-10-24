@@ -35,7 +35,6 @@ class User extends ActiveRecord
                     return ($model->isNewRecord || $model->password != '');
                 }],
             ['status', 'in', 'range' => [0, 1], 'message' => '非法操作'],
-            [['login_date','date','login_ip'],'safe']
         ];
     }
 
