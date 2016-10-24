@@ -82,6 +82,21 @@ class TestController extends Controller
 
     public function actionIndex()
     {
+        /**
+         * 直接访问私有属性
+         */
+//        Yii::$app->test->test();
+        /**
+         * 直接调用组件中的方法,打印私有属性的值
+         */
+//        Yii::$app->test->printTest();
+
+        /**
+         * 直接获取私有属性的值
+         */
+        echo Yii::$app->test->test;
+        echo Yii::$app->tools->debug(Yii::$app->test->test,'Yii::$app->test->test');
+        exit();
         //$imagePath = '@backend/web/upload/1.jpg';
 
         //$cropPath = Yii::getAlias('@backend/web/upload/1-crop.jpg');

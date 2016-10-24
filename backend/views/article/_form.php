@@ -31,7 +31,7 @@ use common\models\Category;
     <div class="form-group">
         <?= Html::label('图片：', 'image', ['class' => 'control-label col-sm-2 col-md-1']) ?>
         <div class="controls col-sm-10 col-md-11">
-            <img id="thumbnail" src="<?= \Yii::getAlias('@web/images/no_image.jpg'); ?>" alt="图片"/>
+            <img id="thumbnail" src="<?= \Yii::getAlias('@web/images/no_image.jpg'); ?>" alt="缩略图" title="缩略图"/>
             <?php
             //外部TAG
             echo Html::activeFileInput($model, 'image', ['id' => 'image']);
@@ -52,6 +52,7 @@ EOF
                     'onUploadSuccess' => new JsExpression(<<<EOF
                     function(file, data, response) {
                         data = JSON.parse(data);
+                        console.log(data);
                         if (data.error) {
                             console.log(data.msg);
                         } else {
