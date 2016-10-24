@@ -23,8 +23,8 @@ class ArticleController extends AdminController
         return [
             's-upload' => [
                 'class' => UploadAction::className(),
-                'basePath' => '@webroot/upload',
-                'baseUrl' => '@web/upload',
+                'basePath' => '@webroot/uploads',
+                'baseUrl' => '@web/uploads',
                 'enableCsrf' => true, // default
                 'postFieldName' => 'Filedata', // default
                 //BEGIN METHOD
@@ -82,7 +82,7 @@ class ArticleController extends AdminController
                      * 创建缩略图存放的目录:
                      * 没有就创建
                      */
-                    $thumbnailDir = Yii::getAlias('@webroot/upload/thumbnail/');
+                    $thumbnailDir = Yii::getAlias('@webroot/uploads/thumbnail/');
                     if (!is_dir($thumbnailDir)) {
                         @mkdir($thumbnailDir);
                     }
@@ -110,8 +110,8 @@ class ArticleController extends AdminController
                      * /0101phpstorm/imister/backend/web/upload/thumbnail/bc19c8c050e6f43bf1be8d060460d02324648bcd-100x100.jpg
                      * bc19c8c050e6f43bf1be8d060460d02324648bcd.jpg
                      */
-                    $action->output['thumbnail'] = Yii::getAlias('@web/upload/thumbnail/') . $thumnailName;
-                    $action->output['Filename'] = $fileImage;
+                    $action->output['thumbnail'] = Yii::getAlias('@web/uploads/thumbnail/') . $thumnailName;
+                    $action->output['image'] = $fileImage;
 
                 },
             ],

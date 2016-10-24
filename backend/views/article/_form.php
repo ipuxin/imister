@@ -55,13 +55,8 @@ EOF
                         if (data.error) {
                             console.log(data.msg);
                         } else {
-//                            $("#thumbnail").attr('src', data.thumbnail);
-//                            $("input[name='Article[image]']").val(data.image);
-//console.log(data.WebUrl);
-
-//console.log(data.SavePath);
-                            console.log(data.thumbnail);
-                            console.log(data.Filename);
+                            $("#thumbnail").attr('src', data.thumbnail);
+                            $("input[name='Article[image]']").val(data.image);
                         }
                     }
 EOF
