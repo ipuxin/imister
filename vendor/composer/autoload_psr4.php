@@ -16,6 +16,7 @@ return array(
     'yii\\bootstrap\\' => array($vendorDir . '/yiisoft/yii2-bootstrap'),
     'yii\\' => array($vendorDir . '/yiisoft/yii2'),
     'xj\\uploadify\\' => array($vendorDir . '/xj/yii2-uploadify-widget'),
+    'cliff363825\\kindeditor\\' => array($vendorDir . '/cliff363825/yii2-kindeditor'),
     'cebe\\markdown\\' => array($vendorDir . '/cebe/markdown'),
     'Faker\\' => array($vendorDir . '/fzaninotto/faker/src/Faker'),
 );

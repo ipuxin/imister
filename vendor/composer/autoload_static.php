@@ -30,6 +30,7 @@ class ComposerStaticInit0d1d3c13f80202964b8b82ff7f2fb863
         ),
         'c' => 
         array (
+            'cliff363825\\kindeditor\\' => 23,
             'cebe\\markdown\\' => 14,
         ),
         'F' => 
@@ -78,6 +79,10 @@ class ComposerStaticInit0d1d3c13f80202964b8b82ff7f2fb863
         'xj\\uploadify\\' => 
         array (
             0 => __DIR__ . '/..' . '/xj/yii2-uploadify-widget',
+        ),
+        'cliff363825\\kindeditor\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/cliff363825/yii2-kindeditor',
         ),
         'cebe\\markdown\\' => 
         array (

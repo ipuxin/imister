@@ -1070,5 +1070,47 @@
             "imagine",
             "yii2"
         ]
+    },
+    {
+        "name": "cliff363825/yii2-kindeditor",
+        "version": "v1.0.5",
+        "version_normalized": "1.0.5.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/cliff363825/yii2-kindeditor.git",
+            "reference": "2e4d3ad5406fbb74f20f9f7a41015b95126a970c"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/cliff363825/yii2-kindeditor/zipball/2e4d3ad5406fbb74f20f9f7a41015b95126a970c",
+            "reference": "2e4d3ad5406fbb74f20f9f7a41015b95126a970c",
+            "shasum": ""
+        },
+        "require": {
+            "yiisoft/yii2": "*"
+        },
+        "time": "2016-05-29 10:21:01",
+        "type": "yii2-extension",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "cliff363825\\kindeditor\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "cliff363825",
+                "email": "cliff_363825@163.com"
+            }
+        ],
+        "description": "KindEditor Widget for Yii2",
+        "keywords": [
+            "kindeditor",
+            "yii2"
+        ]
     }
 ]

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2371bc761f5b975da68bc48802053e78",
-    "content-hash": "7139d19f06a1ee2a5f99190da36c504a",
+    "hash": "45fa0551520c9f92ec8d8fdba3820367",
+    "content-hash": "a00d808aab15bab89fcad253d6fb7adc",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -254,6 +254,46 @@
                 "markdown-extra"
             ],
             "time": "2016-09-14 20:40:20"
+        },
+        {
+            "name": "cliff363825/yii2-kindeditor",
+            "version": "v1.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cliff363825/yii2-kindeditor.git",
+                "reference": "2e4d3ad5406fbb74f20f9f7a41015b95126a970c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cliff363825/yii2-kindeditor/zipball/2e4d3ad5406fbb74f20f9f7a41015b95126a970c",
+                "reference": "2e4d3ad5406fbb74f20f9f7a41015b95126a970c",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "cliff363825\\kindeditor\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "cliff363825",
+                    "email": "cliff_363825@163.com"
+                }
+            ],
+            "description": "KindEditor Widget for Yii2",
+            "keywords": [
+                "kindeditor",
+                "yii2"
+            ],
+            "time": "2016-05-29 10:21:01"
         },
         {
             "name": "ezyang/htmlpurifier",

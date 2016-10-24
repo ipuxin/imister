@@ -69,6 +69,41 @@ class TestController extends Controller
 
     public function actionIndex()
     {
+        //$imagePath = '@backend/web/upload/1.jpg';
+
+        //$cropPath = Yii::getAlias('@backend/web/upload/1-crop.jpg');
+        //$cropPath = Yii::getAlias('@backend/web/upload/1-crop-100-100.jpg');
+        //Image::crop($imagePath,200,200)->save($cropPath, ['quality' => 100]);
+        //Image::crop($imagePath,100,100)->save($cropPath, ['quality' => 100]);
+
+        //$thumbnailPath = Yii::getAlias('@backend/web/upload/1-thumbnail.jpg');
+        //$thumbnailInnerPath = Yii::getAlias('@backend/web/upload/1-thumbnail-inner.jpg');
+        //Image::thumbnail($imagePath, 100, 100)->save($thumbnailPath, ['quality' => 100]);
+        //Image::thumbnail($imagePath, 100, 100, \Imagine\Image\ManipulatorInterface::THUMBNAIL_INSET)->save($thumbnailInnerPath, ['quality' => 100]);
+
+        //$waterPath = '@backend/web/upload/wt.png';
+
+        //$waterImg = Yii::getAlias('@backend/web/upload/1-water.jpg');
+        //$waterImg = Yii::getAlias('@backend/web/upload/1-water-100-100.jpg');
+        //Image::watermark($imagePath, $waterPath)->save($waterImg, ['quality' => 100]);
+        //Image::watermark($imagePath, $waterPath, [100, 100])->save($waterImg, ['quality' => 100]);
+
+        //$fontFile = '@yii/captcha/SpicyRice.ttf';
+        //$textImg = Yii::getAlias('@backend/web/upload/1-text.jpg');
+        //$textImg = Yii::getAlias('@backend/web/upload/1-text-200-200.jpg');
+        //$textImg = Yii::getAlias('@backend/web/upload/1-text-200-200-font.jpg');
+        //Image::text($imagePath, 'Smister', $fontFile)->save($textImg, ['quality' => 100]);
+        //Image::text($imagePath, 'Smister', $fontFile, [200, 200], ['size' => 16, 'color'=>'fefefe', 'angle' => 10])->save($textImg, ['quality' => 100]);
+
+        //$frameImg = Yii::getAlias('@backend/web/upload/1-frame.jpg');
+        //$frameImg = Yii::getAlias('@backend/web/upload/1-frame-fef.jpg');
+        //Image::frame($imagePath, 10)->save($frameImg, ['quality' => 100]);
+        //$frameImg = Yii::getAlias('@backend/web/upload/1-frame-40-fef.jpg');
+
+        //Image::frame($imagePath, 10, 'f60')->save($frameImg, ['quality' => 100]);
+        //Image::frame($imagePath, 40, 'f60', 50)->save($frameImg, ['quality' => 100]);
+
+
         return $this->render('index');
     }
 }
