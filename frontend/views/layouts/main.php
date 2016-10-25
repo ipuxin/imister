@@ -1,82 +1,85 @@
 <?php
-
-/* @var $this \yii\web\View */
-/* @var $content string */
-
-use yii\helpers\Html;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
-use yii\widgets\Breadcrumbs;
-use frontend\assets\AppAsset;
-use common\widgets\Alert;
-
-AppAsset::register($this);
+    use yii\helpers\Url;
 ?>
-<?php $this->beginPage() ?>
 <!DOCTYPE html>
-<html lang="<?= Yii::$app->language ?>">
+<html lang="en-US">
 <head>
-    <meta charset="<?= Yii::$app->charset ?>">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <?= Html::csrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?></title>
-    <?php $this->head() ?>
+    <meta name="keywords" content="smister,mrs,php,linux" />
+    <meta name="description" content="Smister博客是专注于it编程技术分享 , 主要有php , linux ,jquery , html5 , python等技术" />
+    <title>Smister个人博客</title>
+	<script src="<?=Url::base(true);?>/js/jquery.js"></script>
 </head>
 <body>
-<?php $this->beginBody() ?>
-
-<div class="wrap">
-    <?php
-    NavBar::begin([
-        'brandLabel' => 'My Company',
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
-        ],
-    ]);
-    $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'About', 'url' => ['/site/about']],
-        ['label' => 'Contact', 'url' => ['/site/contact']],
-    ];
-    if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
-        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
-    } else {
-        $menuItems[] = '<li>'
-            . Html::beginForm(['/site/logout'], 'post')
-            . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
-                ['class' => 'btn btn-link']
-            )
-            . Html::endForm()
-            . '</li>';
-    }
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => $menuItems,
-    ]);
-    NavBar::end();
-    ?>
-
-    <div class="container">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?= Alert::widget() ?>
-        <?= $content ?>
+    <div class="wrap">
+        <nav id="w0" class="navbar-inverse navbar-fixed-top navbar" role="navigation">
+			<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#w0-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="<?=Url::base(true);?>">Smister</a>
+			</div>
+			<div id="w0-collapse" class="collapse navbar-collapse">
+			<ul id="w1" class="navbar-nav navbar-right nav">
+			<form class="form-group pull-left" onsubmit="return false;" >
+					 <input name="search" value="" id="search-content" type="text" class="form-control" placeholder="站内搜索">
+					 <a href="javascript:void(0)" id="searching"><i class="glyphicon glyphicon-search icon-white"></i></a>
+			</form>
+			<li class="active"><a href="<?=Url::base(true);?>">首页</a></li>
+		</nav>
+        <div class="container">
+            <?=$content;?>
+        </div>
     </div>
-</div>
-
-<footer class="footer">
-    <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-
-        <p class="pull-right"><?= Yii::powered() ?></p>
-    </div>
+<footer class="footer" style="height:auto;min-height:60px;background-color:#373737;">
+        <div class="container">
+            <p class="pull-left">&copy; Smister 2016 | 粤ICP备14038179号</p>
+        </div>
 </footer>
+<link href="<?=Url::base(true);?>/bootstrap/css/bootstrap.css" rel="stylesheet" />
+<link href="<?=Url::base(true);?>/css/site.css" rel="stylesheet" />
+<link href="<?=Url::base(true);?>/css/style.css" rel="stylesheet" />
+<script src="<?=Url::base(true);?>/bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript">
+    var globalSearchUrl = '/site/search.html';
+    $("#searching").click(function(){
+        search($(this).siblings("input").val());
+    });
 
-<?php $this->endBody() ?>
+    $("#search-content").keyup(function(e){
+        if(e.keyCode == 13){
+            search($(this).val());
+        }
+    });
+
+    function search(search){
+        search = $.trim(search);
+        if(search == ""){
+            alert("请输入搜索的内容");
+            return false;
+        }
+
+        if(search.length > 255){
+            alert("输入搜索的内容过长");
+            return false;
+        }
+
+        var searchUrl = '';
+        if(globalSearchUrl.indexOf("?") == -1){
+            searchUrl = globalSearchUrl + '?&search=' + search;
+        }else{
+            searchUrl = globalSearchUrl + '&search=' + search;
+        }
+
+        window.location.href = searchUrl;
+
+    }
+</script>
 </body>
 </html>
-<?php $this->endPage() ?>
