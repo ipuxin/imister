@@ -14,7 +14,7 @@ use yii\base\Component;
 class Tools extends Component
 {
 
-    public function debug($val, $name = '', $exit = false, $dump = false)
+    public function debug($val, $name = '', $exit = true, $dump = false)
     {
         //自动获取调试函数名$func
         if ($dump) {

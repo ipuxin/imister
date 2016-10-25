@@ -76,16 +76,102 @@ class Category extends ActiveRecord
     public static function getAllCategorys()
     {
         $result = [];
-        //pid ASC主要是让父类排在前面
+        /**
+         * 获取所有类别:
+         * 通过 按父类(pid) 由小到大排列(ASC) 让父类排在前面
+         * Array
+         * (
+         * [0] => Array
+         * (
+         * [id] => 5
+         * [pid] => 0
+         * [name] => 编程语言
+         * [sort_order] => 0
+         * [status] => 1
+         * [date] => 1477227518
+         * )
+         *
+         * [1] => Array
+         * (
+         * [id] => 9
+         * [pid] => 0
+         * [name] => PHP框架
+         * [sort_order] => 1
+         * [status] => 1
+         * [date] => 1477359974
+         * )
+         */
         $data = self::find()->orderBy('pid ASC')->asArray()->all();
+
         foreach ($data as $v) {
-            if ($v['pid'] == 0) { //父类处理
+            /**
+             * 处理父类:
+             * 父类没有顶级分类,pid==0
+             */
+            if ($v['pid'] == 0) {
+                /**
+                 * 组合:
+                 * 1.把当前父类的值,赋给一个数组,数组的下标为当前数据的ID;
+                 * 2.父类没有子类,所以,父类数组的用于存放子类的值,暂时为空.
+                 */
                 $result[$v['id']] = $v;
                 $result[$v['id']]['child'] = [];
             } else if ($result[$v['pid']]) {
+                /**
+                 * 如果存在父类:
+                 * 就把当前的值存储到,父类中,
+                 * 找到组合好的pid数组,拼接到下标为child的地方
+                 */
                 $result[$v['pid']]['child'][] = $v;
             }
         }
+        /**
+         * Array
+         * (
+         * [5] => Array
+         * (
+         * [id] => 5
+         * [pid] => 0
+         * [name] => 编程语言
+         * [sort_order] => 0
+         * [status] => 1
+         * [date] => 1477227518
+         * [child] => Array
+         * (
+         * [0] => Array
+         * (
+         * [id] => 6
+         * [pid] => 5
+         * [name] => PHP
+         * [sort_order] => 0
+         * [status] => 1
+         * [date] => 1477227530
+         * )
+         *
+         * [1] => Array
+         * (
+         * [id] => 7
+         * [pid] => 5
+         * [name] => Java
+         * [sort_order] => 2
+         * [status] => 1
+         * [date] => 1477227550
+         * )
+         *
+         * [2] => Array
+         * (
+         * [id] => 8
+         * [pid] => 5
+         * [name] => C++
+         * [sort_order] => 1
+         * [status] => 1
+         * [date] => 1477227562
+         * )
+         *
+         * )
+         *
+         * )
+         */
         return $result;
     }
 

@@ -13,21 +13,10 @@ use common\models\Article;
 
 class ArticleQry extends BaseDb
 {
-    private $a;
-
-    public function __construct()
-    {
-        $this->a = mt_rand(111, 999);
-    }
-
-    public function getA()
-    {
-        echo $this->a . '<br>';
-
-    }
 
     /**
-     * 获取文章的个数
+     * 获取文章的个数,默认为顶级分类
+     * 根据文章类别计算该类别下的文章个数
      * @param int $cid 文章分类
      */
     public function count($cid = 0)
@@ -39,7 +28,6 @@ class ArticleQry extends BaseDb
         }
         return Article::find()->where(array_merge(['status' => 1], $where))->count();
     }
-
 
     /**
      * 读取文章数据
@@ -54,6 +42,8 @@ class ArticleQry extends BaseDb
         if ($cid > 0) {
             $where['cid'] = (int)$cid;
         }
-        return Article::find()->select('id, cid, title, update_date, author, count, description')->where(array_merge(['status' => 1], $where))->offset($offset)->limit($limit)->asArray()->all();
+        return Article::find()->select('id, cid, title, update_date, author, count, description')
+            ->where(array_merge(['status' => 1], $where))
+            ->offset($offset)->limit($limit)->asArray()->all();
     }
 }

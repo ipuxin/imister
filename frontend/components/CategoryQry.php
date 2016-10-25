@@ -1,10 +1,7 @@
 <?php
 /**
- * YiiBlog
- *
- * @author: Administrator
- * @date: 2016/5/12 23:18
- * @copyright Copyright (c) 2016 xjuke.com
+ * 提供以下数据:
+ * 文章总数,分类总数,文章类别侧栏分层显示.
  */
 namespace frontend\components;
 
@@ -13,6 +10,11 @@ use common\models\Category;
 
 class CategoryQry extends BaseDb
 {
+
+    /**
+     * @return array
+     * 拼合侧栏的文章类别
+     */
     public function getCategorys()
     {
         $result = [
@@ -22,6 +24,9 @@ class CategoryQry extends BaseDb
                 'labelName' => '全部',
             ]
         ];
+        /**
+         * 获取把子类归纳到父类之后的数据
+         */
         $categorys = Category::getAllCategorys();
 
         foreach ($categorys as $category) {
@@ -39,7 +44,6 @@ class CategoryQry extends BaseDb
                 ];
             }
         }
-
         return $result;
     }
 }
