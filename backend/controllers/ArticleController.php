@@ -7,6 +7,8 @@ use backend\controllers\AdminController;
 use Imagine\Image\ManipulatorInterface;
 use xj\uploadify\UploadAction;
 use yii\imagine\Image;
+use common\models\Category;
+use yii\data\Pagination;
 
 class ArticleController extends AdminController
 {
@@ -55,7 +57,7 @@ class ArticleController extends AdminController
                 'afterSave' => function (UploadAction $action) {
                     //返回生成图片的数据
                     $action->output['image'] = $action->getFilename();
-                    $action->output['thumbnail'] =Yii::$app->tools->createThumbnail($action->getFilename(), 100, 100);
+                    $action->output['thumbnail'] = Yii::$app->tools->createThumbnail($action->getFilename(), 100, 100);
                 },
             ],
             /**
@@ -68,20 +70,66 @@ class ArticleController extends AdminController
         ];
     }
 
+    /**
+     * @return string
+     * 文章列表
+     */
     public function actionIndex()
     {
-        return $this->render('index', ['result' => [], 'pagination' => new \yii\data\Pagination()]);
+        $model = Article::find();
+        $pagination = new Pagination(['totalCount' => $model->count(), 'pageSize' => 10]);
+        $result = $model->offset($pagination->offset)->limit($pagination->limit)->all();
+
+        return $this->render('index', ['result' => $result, 'pagination' => $pagination, 'categorys' => Category::getCategory()]);
+
     }
 
+    /**
+     * @return string|\yii\web\Response
+     * 文章添加
+     */
     public function actionAdd()
     {
         $model = new Article();
-        if (Yii::$app->request->isPost) {
-            print_r(Yii::$app->request->post());
-            exit();
+        if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', '添加文章成功');
+            return $this->redirect(['index']);
         }
 
-        return $this->render('add', ['model' => $model]);
+        return $this->render('add', ['model' => $model, 'categorys' => Category::getAllCategorys()]);
     }
 
+    /**
+     * @param $id
+     * @return string|\yii\web\Response
+     * 文章编辑
+     */
+    public function actionEdit($id)
+    {
+        $id = (int)$id;
+        $model = Article::findOne($id);
+        if ($model) {
+            if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post()) && $model->save()) {
+                Yii::$app->session->setFlash('success', '编辑文章成功');
+                return $this->redirect(['index']);
+            }
+            return $this->render('edit', ['model' => $model, 'categorys' => Category::getAllCategorys()]);
+        }
+        return $this->redirect(['index']);
+    }
+
+    /**
+     * @return \yii\web\Response
+     * 文章删除
+     */
+    public function actionDelete()
+    {
+        $selected = Yii::$app->request->post('selected');
+        if (Article::deleteIn($selected)) {
+            Yii::$app->session->setFlash('success', '删除文章成功');
+        } else {
+            Yii::$app->session->setFlash('error', '删除文章失败');
+        }
+        return $this->redirect(['index']);
+    }
 }

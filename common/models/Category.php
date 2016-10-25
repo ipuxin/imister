@@ -71,6 +71,33 @@ class Category extends ActiveRecord
     }
 
     /**
+     * 读取所有文章分类 , 将子类归纳到父类中
+     */
+    public static function getAllCategorys()
+    {
+        $result = [];
+        //pid ASC主要是让父类排在前面
+        $data = self::find()->orderBy('pid ASC')->asArray()->all();
+        foreach ($data as $v) {
+            if ($v['pid'] == 0) { //父类处理
+                $result[$v['id']] = $v;
+                $result[$v['id']]['child'] = [];
+            } else if ($result[$v['pid']]) {
+                $result[$v['pid']]['child'][] = $v;
+            }
+        }
+        return $result;
+    }
+
+    /**
+     * 读取文章中的所有分类 ， 根据id排序
+     */
+    public static function getCategory()
+    {
+        return ArrayHelper::index(self::find()->select('id,name')->asArray()->all(), 'id');
+    }
+
+    /**
      * @param $selected
      * @return int
      * 删除
