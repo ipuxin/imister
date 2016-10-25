@@ -58,7 +58,8 @@ class ArticleController extends AdminController
                     $action->output['thumbnail'] =Yii::$app->tools->createThumbnail($action->getFilename(), 100, 100);
                 },
             ],
-            /**             * KindEditor
+            /**
+             * KindEditor
              */
             'upload' => [
                 'class' => '\cliff363825\kindeditor\KindEditorUploadAction',

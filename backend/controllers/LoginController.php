@@ -11,13 +11,16 @@ class LoginController extends CommonController
      * @return $this
      * 判断,没有登录就跳转到首页
      */
-    public function init()
+    public function beforeAction($action)
     {
-        parent::init();
-        //判断用户是否登录
-        if($this->userId){
-            return Yii::$app->response->redirect(['site/index']);
+        if (parent::beforeAction($action)) {
+            //判断用户是否登录
+            if ($this->userId) {
+                return Yii::$app->response->redirect(['site/index']);
+            }
+            return true;
         }
+        return false;
     }
 
     /**
@@ -26,7 +29,7 @@ class LoginController extends CommonController
      */
     public function actions()
     {
-       return [
+        return [
             'captcha' => [
                 'class' => 'yii\captcha\captchaAction',
                 'maxLength' => 3,
@@ -34,7 +37,7 @@ class LoginController extends CommonController
                 'width' => 80,
                 'height' => 40
             ]
-       ];
+        ];
     }
 
     /**
@@ -47,10 +50,10 @@ class LoginController extends CommonController
     {
         $model = new LoginForm();
 
-        if(Yii::$app->request->isPost && $model->load(Yii::$app->request->post()) && $model->validate() && $model->login()){
+        if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post()) && $model->validate() && $model->login()) {
 
             return $this->redirect(['site/index']);
         }
-        return $this->renderPartial('index' , ['model' => $model]);
+        return $this->renderPartial('index', ['model' => $model]);
     }
 }
