@@ -1,5 +1,6 @@
 <?php
 use yii\helpers\Url;
+
 ?>
 <link rel="stylesheet" href="css/article.css"/>
 <div class="container">
@@ -8,6 +9,8 @@ use yii\helpers\Url;
             <div class="content">
                 <article class="thread thread-card  article-nav" style="padding: 5px 10px;">
                     <a href="<?= Url::base(true); ?>">首页</a>
+                    <?php if (!empty($nowCategory) && $nowCategory['pid'] != -1) echo ' &gt;&gt; ' . $nowCategory['name']; ?>
+                    <?php if (!empty($search)) echo ' &gt;&gt; ' . $search; ?>
                 </article>
                 <?php foreach ($articles as $article) {
                     /**
@@ -23,7 +26,7 @@ use yii\helpers\Url;
                                 <span style="display:block"><?= $timeData[2] ?></span>
                             </div>
                             <h3 class="thread-title">
-                                <a href="/site/article.html?id=29"><?= $article['title'] ?></a>
+                                <a href="<?= Url::to(['article', 'id' => $article['id']]) ?>"><?= $article['title'] ?></a>
                             </h3>
                             <div class="thread-meta">
                                 <?= $article['author'] ?>&nbsp;
@@ -72,14 +75,30 @@ use yii\helpers\Url;
             <section class="card">
                 <h4>分类</h4>
                 <ul>
-                    <?php foreach ($categorys as $cid => $cate) { ?>
-                        <li>
-                            <a href="<?php
+                    <?php
+                    /**
+                     * 侧边,类别展示,点击进入子类文章列表
+                     */
+                    //                    Yii::$app->tools->debug($categorys);
+                    foreach ($categorys as $cid => $category) {
+                        /**
+                         * 如果是拼凑的"全部",则跳转到首页,显示所有文章
+                         */
+                        if ($cid == 0) {
+                            $url = Url::base(true);
+                        } else {
                             /**
-                             * 如果为顶级分类,就跳转到首页,
-                             * 否则,跳转到对应的类别
+                             * 如果是顶级分类,不做跳转
                              */
-                            echo ($cid == 0) ? Url::base(true) : Url::to(['article', 'id' => $cid]) ?>"><?= $cate['labelName'] ?></a>
+                            if ($category['pid'] == 0) {
+                                $url = 'javascript:void(0);';
+                            } else {
+                                $url = Url::to(['index', 'cid' => $cid]);
+                            }
+                        }
+                        ?>
+                        <li>
+                            <a href="<?= $url ?>"><?= $category['labelName'] ?></a>
                         </li>
                     <?php } ?>
                 </ul>
@@ -88,15 +107,11 @@ use yii\helpers\Url;
             <section class="card">
                 <h4>热门文章</h4>
                 <ul>
-                    <li style="overflow:hidden;white-space: nowrap;text-overflow: ellipsis;">
-                        <a href="/site/article.html?id=9">Coreseek(中文分词的Sphinx)分词搜索配置及其设置增量索引</a>
-                    </li>
-                    <li style="overflow:hidden;white-space: nowrap;text-overflow: ellipsis;">
-                        <a href="/site/article.html?id=17">分析Nginx访问日志及写入数据库</a>
-                    </li>
-                    <li style="overflow:hidden;white-space: nowrap;text-overflow: ellipsis;">
-                        <a href="/site/article.html?id=21">Linux配置MongoDB</a>
-                    </li>
+                    <?php foreach($hotArticles as $article) {?>
+                        <li style="overflow:hidden;white-space: nowrap;text-overflow: ellipsis;">
+                            <a href="<?=Url::to(['article', 'id' => $article['id']])?>"><?=$article['title']?></a>
+                        </li>
+                    <?php }?>
                 </ul>
             </section>
         </aside>

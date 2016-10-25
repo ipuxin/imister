@@ -46,4 +46,37 @@ class ArticleQry extends BaseDb
             ->where(array_merge(['status' => 1], $where))
             ->offset($offset)->limit($limit)->asArray()->all();
     }
+
+    /**
+     * 获取热门文章
+     *
+     * @param int $limit 获取条数，默认10条
+     */
+    public function getHotArticles($limit = 10)
+    {
+        return Article::find()->select('id, title')->where(['status' => 1])->orderBy('count DESC')->limit($limit)->asArray()->all();
+    }
+
+    /**
+     * 获取模糊查询文章的个数
+     *
+     * @param string $title 模糊查询标题
+     */
+    public function getLikeArticleCount($title)
+    {
+        return Article::find()->where(['and', ['status' => 1], ['like', 'title', $title]])->count();
+    }
+
+    /**
+     * 获取模糊查询文章
+     *
+     * @param string $title 模糊查询标题
+     */
+    public function getLikeArticles($title, $offset = 0, $limit = 10)
+    {
+        return Article::find()->select('id, cid, title, update_date, author, count, description')
+            ->where(['and', ['status' => 1], ['like', 'title', $title]])
+            ->offset($offset)->limit($limit)->asArray()->all();
+    }
+
 }
