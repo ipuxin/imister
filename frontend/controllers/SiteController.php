@@ -9,9 +9,11 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
+        \frontend\components\ArticleQry::getInstance()->getA();
+        \frontend\components\ArticleQry::getInstance()->getA();
+        \frontend\components\ArticleQry::getInstance()->getA();
         return $this->render('index');
     }
-
 
     public function actionArticle()
     {
